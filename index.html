@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snowy Christmas Orb</title>
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(to bottom, #001f3f, #00101a);
+            color: white;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .snow-globe {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #ffffff 50%, transparent 60%);
+            border: 4px solid white;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 20px white;
+        }
+        
+        .snow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .snowflake {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(400px);
+                opacity: 0.2;
+            }
+        }
+        
+        .base {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 40px;
+            background: #6b4f4f;
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+        }
+        
+        .message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #ffeb3b;
+            text-shadow: 0 0 10px #ffeb3b;
+            font-size: 1.5rem;
+            animation: fadeIn 2s forwards;
+        }
+        
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snow-globe">
+        <div class="snow">
+            <!-- Snowflakes generated dynamically with JS -->
+        </div>
+        <div class="message">Merry Christmas!<br>May Your World Be Magical!</div>
+        <div class="base"></div>
+    </div>
+
+    <script>
+        const snowContainer = document.querySelector('.snow');
+
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+
+            // Randomize position and animation duration
+            snowflake.style.left = `${Math.random() * 100}%`;
+            snowflake.style.animationDuration = `${2 + Math.random() * 3}s`;
+            snowflake.style.animationDelay = `${Math.random() * 2}s`;
+
+            snowContainer.appendChild(snowflake);
+
+            // Remove snowflake after animation
+            snowflake.addEventListener('animationend', () => {
+                snowflake.remove();
+            });
+        }
+
+        setInterval(createSnowflake, 100);
+    </script>
+</body>
+
+</html>
